@@ -94,7 +94,7 @@ func main() {
 	Blockchain = append(Blockchain, genesisBlock)
 
 	// start TCP and serve TCP server
-	server, err := net.Listen("tcp", ":" + os.Getenv("ADDR"))
+	server, err := net.Listen("tcp", ":"+os.Getenv("ADDR"))
 
 	if err != nil {
 		log.Fatal(err)
@@ -131,14 +131,14 @@ func handleConn(conn net.Conn) {
 				continue
 			}
 
-			newBlock, err := generateBlock(Blockchain[len(Blockchain) - 1], bpm)
+			newBlock, err := generateBlock(Blockchain[len(Blockchain)-1], bpm)
 
 			if err != nil {
 				log.Println(err)
 				continue
 			}
 
-			if isBlockValid(newBlock, Blockchain[len(Blockchain) - 1]) {
+			if isBlockValid(newBlock, Blockchain[len(Blockchain)-1]) {
 				newBlockchain := append(Blockchain, newBlock)
 				replaceChain(newBlockchain)
 			}
